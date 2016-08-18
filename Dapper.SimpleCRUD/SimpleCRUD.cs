@@ -139,8 +139,16 @@ namespace Dapper
                 }
 
             if (Debugger.IsAttached)
-                Trace.WriteLine(String.Format("Get<{0}>: {1} with Id(s): {2}", currenttype, sb, id));
-
+            {
+                if (idProps.Count == 1)
+                {
+                    Trace.WriteLine(String.Format("Get<{0}>: {1} with Id(s): {2}", currenttype, sb, id));
+                }
+                else
+                {
+                    Trace.WriteLine(String.Format("Get<{0}>: {1} ", currenttype, sb));
+                }
+            }
             return connection.Query<T>(sb.ToString(), dynParms, transaction, true, commandTimeout).FirstOrDefault();
         }
 
